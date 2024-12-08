@@ -17,6 +17,9 @@
         h1, h2 {
             color: #007ACC;
         }
+        h3 {
+        color: #007ACC; /* 这里是图片中蓝色的颜色代码 */
+        }
         img {
             max-width: 100%;
             height: auto;
@@ -81,8 +84,8 @@
         <h3>How did you test?</h3>
         <p>W</p>
         <ul>
-            <li>F</li>
-            <li>P</li>
+            <li>1.</li>
+            <li>2.</li>
         </ul>
  
         <img src="srs-testing-image.jpg" alt="SRS Testing Image">
@@ -91,27 +94,102 @@
     <!-- 4. HRS Validation -->
     <section>
         <h2>HRS Validation</h2>
-        <h3>Did you achieve your requirements?</h3>
-        <p>Yes</p>
-        <h3>How did you test?</h3>
-        <p>Hardware tests </p>
-        <ul>
-            <li>Integration</li>
-            <li>Hardware integration tests with proof of work.</li>
-        </ul>
+        <h4>Noted: All the detailed tested data from the sensor and some test videoes refer to: <a href="https://github.com/upenn-embedded/final-project-circuit-circus/blob/main/README.md">How we test? Collected data, images and videoes (Search Requirements Specification(HRS) Achievement on the Readme)</a> </h4>    
+    
+        <h4>Remotely Control skip to 1:14 and 6:31 in the <a href="https://www.youtube.com/watch?v=YMLCRkXXhso">Fianl Demo Video</a> at top;</h4>    
+        
 
-        <img src="hrs-testing-image.jpg" alt="HRS Testing Image">
+    <section>
+        <h3>HRS01: Humidity Sensor (DHT11) with Automated Window Control</h3>
+        <p><strong>Automated Control:</strong> The system automatically closes or opens the windows using a NEMA 17 step motor when the detected humidity exceeds or falls below a set threshold and rain is detected.</p>
+        <p><strong>Remote Control and Monitoring:</strong> Humidity and temperature data are displayed in the Blynk app, allowing users to monitor environmental conditions and remotely control the windows (open/close) via the app.</p>
+        <p><strong>Validation:</strong> The system was tested in both high- and low-humidity environments. In a high-humidity setup, the window closed automatically, and in a low-humidity setup, the window opened. For demonstration video, skip to 2:28 in the Fianl Demo Video at top</p>
+    </section>
+
+    <!-- Light Sensor -->
+    <section>
+        <h3>HRS02: Light Sensor (BH1750) with Automated Lighting and Curtain Control</h3>
+
+        <p><strong>Automated Control:</strong> The system adjusts to changing light conditions. As outdoor light decreases (indicating evening), it gradually turns on LEDs (ws2812) for ambient lighting and closes the curtains using a step motor. Conversely, as outdoor light increases (indicating morning), the curtains automatically open.</p>
+
+        <p><strong>Validation:</strong> The system was tested under varying light intensities to simulate day and night conditions. Proper functionality of both the LEDs and curtain motors was verified. For demonstrations, refer to the following timestamps in the Fianl Demo Video:
+        <ul>
+            <li>Auto Ambient Lighting: Skip to 5:58</li>
+            <li>Auto Curtain Control: Skip to 6:54</li>
+        </ul>
+        </p>
+    </section>
+
+
+
+    <!-- Motion Sensor -->
+    <section>
+        <h3>HRS03: Motion Sensor (PIR HC-SR501) with Intrusion Detection</h3>
+
+        <p><strong>Automated Control:</strong> When unauthorized motion is detected near the entrance, the system automatically activates a buzzer and LED alarm to notify of potential intrusion.</p>
+
+        <p><strong>Validation:</strong> The system was tested by simulating motion near the sensor. Both the buzzer and LED alarm were confirmed to activate as expected. The test setup and results were recorded in video format. Refer to the demonstration video at timestamp 4:52 for details.</p>
+
+
+    </section>
+
+
+        <!-- Smoke Sensor -->
+    <section>
+      <h3>HRS04: Fresh Air System with Smoke Sensor (MQ-9B) and Smoke Detection and Alarm</h3>
+
+        <p><strong>Automated Control:</strong> When smoke levels exceed a safe threshold, the system automatically activates a 5V exhaust fan to ventilate the area and triggers a smoke alarm using a buzzer for immediate notification.</p>
+
+        <p><strong>Validation:</strong> The system was tested under simulated smoke conditions. Both the fan activation and buzzer alarm were verified to function correctly. For a demonstration, refer to the Final Demo Video at the top, timestamp 3:41.</p>
+
+    </section>
+
+    <!-- Gyroscope/Vibration Sensor -->
+    <section>
+        <h3>HRS05: Gyroscope/Vibration Sensor (GY521) with Earthquake Detection</h3>
+
+        <p><strong>Automated Control:</strong> When seismic activity, such as an earthquake, is detected, the system automatically triggers an earthquake alarm, activating both a buzzer and an LED to alert users.</p>
+
+        <p><strong>Validation:</strong> The system was tested by simulating vibration conditions to mimic seismic activity. The buzzer and LED alarm were confirmed to activate correctly. For a demonstration, refer to the video at timestamp 5:32.</p>
+    </section>
+
+
+    <!-- Remotely Controlled Door -->
+    <section>
+        <h3>HRS06: Remotely Controlled Door with SG90 Motor</h3>
+
+
+        <p><strong>Validation:</strong>The door can be open/closed via phone remotely. For a demonstration, refer to the video at timestamp 6:33.</p>
+
+    <!-- IoT Control -->
+    <section>
+        <h3>HRS07: Remote IoT Control and Monitor: Blynk Integration</h3>
+        <p><strong>Except the auto-controlling,</strong> Sensor data and motor/actuator states are transmitted to the ESP32 and published to the Blynk cloud, enabling remote monitoring and control via a smartphone app.</p>
+
+        <p><strong>Validation:</strong>  Controlled motors and actuators through the app and confirmed synchronization with the physical system. The control process and state monitoring UI skip to 1:14 and 6:31</p>
+    
+    </section>
+
+
+
     </section>
 
     <!-- 5. Conclusion -->
     <section>
         <h2>Conclusion</h2>
-        <h3>Any differently?</h3>
-        <p>If more time improves</p>
+        <p>This project was a significant learning experience in IoT system design, integrating hardware and software to create an intelligent, automated home. Key features include environmental monitoring (humidity, light, smoke, motion, and seismic activity), automated control of windows, curtains, and ventilation, intrusion detection, and seamless IoT-based remote control via the Blynk app. Communication between the ATmega328PB and ESP32 ensures real-time data synchronization, providing a responsive, user-friendly, and efficient smart home solution. This IoT-based smart home system capable of automating multiple home appliances and transmitting real-time data to a smartphone app for bidirectional control which integrates a variety of sensors, motors, and communication protocols, enabling responsive and customizable functionality. The core control logic was programmed into an ATmega328PB Xplained Board, which communicates with an ESP32 microcontroller via SPI, and data is further transmitted to the Blynk cloud through MQTT.</p>
+
+        <h3>Lessons Learned</h3>
+        <p> Through this project, we realized the importance of thorough testing to ensure sensor reliability under diverse conditions, which is vital for accurate system performance. We also learned to anticipate communication delays in IoT systems and the necessity of designing for fault tolerance to enhance system robustness. The integration process, involving numerous components, consumed significant time and effort, during which we encountered many challenging and hard-to-understand bugs and incompatibilities. These experiences deepened our understanding of embedded systems and equipped us to handle similar issues more effectively in the future.</p>
+
+        <h3>Future Improvements</h3>
+        <p>  To enhance scalability and flexibility, transitioning to wireless communication protocols like Wi-Fi or Zigbee would be beneficial. Incorporating machine learning algorithms could optimize device control by predicting user preferences, while adding energy-saving mechanisms such as solar-powered components would improve sustainability. Given the complexity of this smart home system, using a more powerful board or planning for multiple boards from the start would ensure better performance. In such cases, robust remote communication between boards should be prioritized. </p>
+
     </section>
 
     <footer>
-        <p>Project by HT RZW, QYX</p>
+        <p>Many thanks to Nicholas McGill-Gardner, Yadnik Bendale and all guys in this courses. </p>
+        <p>Project by <a href="https://github.com/HTUPENN">HT</a>, <a href="https://github.com/RzWang0404">RZW</a>  , <a href="https://github.com/QingyangXu11">QYX</a></p>
     </footer>
 </body>
 </html>
