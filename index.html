@@ -79,17 +79,92 @@
     <!-- 3. SRS Validation -->
     <section>
         <h2>SRS Validation</h2>
-        <h3>Did you achieve your requirements?</h3>
-        <p>Yes</p>
-        <h3>How did you test?</h3>
-        <p>W</p>
-        <ul>
-            <li>1.</li>
-            <li>2.</li>
-        </ul>
- 
-        <img src="srs-testing-image.jpg" alt="SRS Testing Image">
     </section>
+
+    <section>
+        <h3>SRS01: Sensors' driving, reading and sensor-based acuator control</h3>
+    </section>
+
+ <section>
+    <h4>1: Light Sensor (BH1750) with Curtain Motor</h4>
+    <p><strong>Communication Protocol:</strong> The BH1750 communicates with the microcontroller using the I2C protocol to transfer lux data.</p>
+    <p><strong>Data Transfer and Motor Driver:</strong> Lux data is transfered via I2C, and sent to Atmega328PB which set signals to control the curtain motor.</p>
+    <p><strong>Control Logic:</strong></p>
+    <ul>
+        <li>Low Lux (< 200): Indicates nighttime; the curtain is closed using the motor (<code>motor_backward</code>).</li>
+        <li>Moderate Lux (200–3000): Indicates daytime; the curtain is opened using the motor (<code>motor_forward</code>).</li>
+    </ul>
+</section>
+
+<section>
+    <h4>2: Gyroscope Sensor (GY521) with LED and buzzer</h4>
+    <p><strong>Communication Protocol:</strong> The GY521 communicates with the microcontroller using the I2C protocol, providing acceleration data across x, y, and z axes.</p>
+    <p><strong>Data Transfer and LED Driver:</strong> Acceleration data is processed via I2C, and sent to Atmega328PB which light the LED through GPIO pins and sound a buzzer using PWM GPIO.</p>
+    <p><strong>Control Logic:</strong></p>
+    <ul>
+        <li>Acceleration exceeds 1.50g: An earthquake is detected, and the LED and buzzeralarm is activated. (Simulations use 1.5g to prevent false triggers; theoretical threshold is 1.02g.)</li>
+    </ul>
+</section>
+
+<section>
+    <h4>3: Smoke Sensor (MQ-9B) with Buzzer Alarm and Fan</h4>
+    <p><strong>Communication Protocol:</strong> The MQ-9B outputs an analog signal representing the concentration of smoke or harmful gases, which is read via the ADC on the microcontroller.</p>
+    <p><strong>Data Transfer and Actuator Driver:</strong> Sensor data is converted to digital form via the ADC, and control signals are sent to the buzzer and fan via GPIO and motor driver function in Atmega328PB.</p>
+    <p><strong>Control Logic:</strong></p>
+    <ul>
+        <li>Low Smoke (< 50 ppm): Normal air quality; no action is taken.</li>
+        <li>High Smoke (> 200 ppm): Hazardous levels; the buzzer emits a continuous alarm, and the fan turns on for ventilation.</li>
+    </ul>
+</section>
+
+<section>
+    <h4>4: Humidity Sensor (DHT11) with Automatic Windom Motor (SG90)</h4>
+    <p><strong>Communication Protocol:</strong> The DHT11 uses a simple one-wire protocol to communicate with the microcontroller.</p>
+    <p><strong>Data Transfer and Motor Driver:</strong> Humidity data is transferred via the one-wire protocol, and control signals are sent to the SG90 motor through a motor driver funtion.</p>
+    <p><strong>Control Logic:</strong></p>
+    <ul>
+        <li>Low Humidity (< 30%) and Moderate Lux (> 200): Sunny conditions; The window open.(<code>motor at 0 degrees</code>)</li>
+        <li>High Humidity (> 80%): Excessive moisture; The window close. (<code>motor at 90 degrees</code>).</li>
+    </ul>
+</section>
+
+<section>
+    <h4>5: PIR Sensor (HC-SR501) with Buzzer and LED</h4>
+    <p><strong>Communication Protocol:</strong> The HC-SR501 outputs a digital high/low signal to the microcontroller, indicating motion detection status.</p>
+    <p><strong>Data Transfer and Actuator Driver:</strong> Motion detection signals are received via GPIO pins, and the buzzer and LED are controlled through GPIO outputs.</p>
+    <p><strong>Control Logic:</strong></p>
+    <ul>
+        <li>No Motion Detected: Both buzzer and LED remain off.</li>
+        <li>Motion Detected: The buzzer emits an alert sound, and the LED flashes to indicate intrusion.</li>
+    </ul>
+</section>
+
+
+    <h3>SRS 02: Task Integration, Sensor-Based Actuator Control</h3>
+    <ul>
+        <li>
+            <strong>Temperature & Humidity Sensor + Light Sensor:</strong> 
+            Integrated to control the curtain step motor based on environmental conditions.
+        </li>
+        <li>
+            <strong>Light Sensor:</strong> Used to control the LED stripe for ambient lighting adjustments and auto-curtain.
+        </li>
+        <li>
+            <strong>Temperature & Humidity Sensor:</strong> Used to control the window NEMA 17 step motor for automated window adjustments.
+        </li>
+        <li>
+            <strong>Smoke Sensor:</strong> Used to control the KY-012 sounder and fan, providing ventilation and alarms in hazardous conditions.
+        </li>
+        <li>
+            <strong>Gyroscope:</strong> Used to trigger the KY-012 sounder during seismic events, simulating earthquake alarms.
+        </li>
+        <li>
+            <strong>Human Sensor (PIR Motor):</strong> Used to control the KY-012 sounder for intrusion detection, emitting an audible alarm upon unauthorized motion.
+        </li>
+    </ul>
+
+
+</section>
 
     <!-- 4. HRS Validation -->
     <section>
@@ -110,7 +185,7 @@
     <section>
         <h3>HRS02: Light Sensor (BH1750) with Automated Lighting and Curtain Control</h3>
 
-        <p><strong>Automated Control:</strong> The system adjusts to changing light conditions. As outdoor light decreases (indicating evening), it gradually turns on LEDs (ws2812) for ambient lighting and closes the curtains using a step motor. Conversely, as outdoor light increases (indicating morning), the curtains automatically open.</p>
+        <p><strong>Automated Control:</strong> The system adjusts to changing light conditions. As outdoor light decreases (indicating evening), it gradually turns on LEDs (ws2812) for ambient lighting and closes the curtains using a step motor. Conversely, as outdoor light increases (indicating morning), the curtains automatically open. Curtain motor is connected to a H-bridge to control the close/open of the curtain through Through our curtain-motor driver function</p>
 
         <p><strong>Validation:</strong> The system was tested under varying light intensities to simulate day and night conditions. Proper functionality of both the LEDs and curtain motors was verified. For demonstrations, refer to the following timestamps in the Fianl Demo Video:
         <ul>
@@ -169,6 +244,23 @@
         <p><strong>Validation:</strong>  Controlled motors and actuators through the app and confirmed synchronization with the physical system. The control process and state monitoring UI skip to 1:14 and 6:31</p>
     
     </section>
+
+    <section>
+    <h3>Performance Metrics and Shortcomings</h3>
+
+    <h4>Performance Metrics</h4>
+    <ul>
+        <li><strong>Power Efficiency:</strong> The system operates within a power budget of 12V DC, supporting all sensors and actuators without significant voltage drops.</li>
+        <li><strong>Component Responsiveness:</strong> Motors (e.g., NEMA 17, SG90) responded promptly to control signals, with activation times under 300ms.</li>
+        <li><strong>Sensor Integration:</strong> All sensors (DHT11, MQ-9B, PIR, gyroscope) exhibited stable performance under various environmental conditions.</li>
+    </ul>
+
+    <h4>Shortcomings</h4>
+    <ul>
+        <li><strong>Smoke Sensor:</strong> Reduced sensitivity was observed when operating under extreme temperatures, necessitating recalibration to maintain accuracy.</li>
+        <li><strong>Scalability Limitation:</strong> The reliance on wired SPI for microcontroller communication constrained the system's scalability for larger deployments.</li>
+    </ul>
+</section>
 
 
 
