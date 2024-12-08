@@ -31,10 +31,23 @@
 </head>
 <body>
     <header>
-        <h1>Smart Home! ESE519 TEAM: Ciruit Circus</h1>
+        <h1>Smart Home!</h1>
     </header>
 
-    <!-- 1. Video of the Final Product -->
+
+    <!-- Team Information -->
+    <section class="team-info">
+        <h2>Team Information</h2>
+        <p><strong>Team Name:</strong> Circuit Circus</p>
+        <p><strong>Team Members:</strong> Hao Tan, Qingyang Xu, Ruizhe Wang</p>
+        <p><strong>GitHub Repository:</strong> 
+            <a href="https://github.com/upenn-embedded/final-project-circuit-circus.git" target="_blank">
+                https://github.com/upenn-embedded/final-project-circuit-circus.git
+            </a>
+        </p>
+    </section>
+
+    <!-- 0. Video of the Final Product -->
     <section>
         <h2>Fianl Demo Video</h2>
         <p>Click to watch the video:</p>
@@ -43,11 +56,21 @@
         </a>
     </section>
 
-    <!-- 2. Images of the Final Product -->
+
+        <!-- 1. Discription -->
     <section>
-        <h2>Images of the Final Product</h2>
-        <img src="final-product-image1.jpg" alt="Final Product Image 1">
-        <img src="final-product-image2.jpg" alt="Final Product Image 2">
+        <h2>Discription</h2>
+        <p>This project was a significant learning experience in IoT system design, integrating hardware and software to create an intelligent, automated home. This IoT-based smart home system capable of automating multiple home appliances and transmitting real-time data to a smartphone app for bidirectional control. The system integrates a variety of sensors, motors, and communication protocols, enabling responsive and customizable functionality. The core control logic was programmed into an ATmega328PB Xplained Board, which communicates with an ESP32 microcontroller via SPI, and data is further transmitted to the Blynk cloud through MQTT.</p>
+    </section>
+
+
+
+    <!-- 2. Images  -->
+    <section>
+        <h2>Images</h2>
+        <p>The below figures illlustrated the segment and whole system circuitry, where we used ATmega328PB as the manipulator programmed in bare metal C, and ESP32-FeatherS2 as the communication station to receive manipulator's feedback via SPI and publish to the IoT cloud(Blynk cloud) and deliver remote control demand from the user(typical Blynk app) back to the manipulator.</p>
+        <img src="one_part.jpg" alt="Segment system circuitry">
+        <img src="whole_system.jpg" alt="The whole Smart home">
     </section>
 
     <!-- 3. SRS Validation -->
@@ -61,10 +84,7 @@
             <li>Functional testing: Verified all system functionalities against requirements.</li>
             <li>Proof of work: See below for videos and images.</li>
         </ul>
-        <video controls>
-            <source src="srs-testing-video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+ 
         <img src="srs-testing-image.jpg" alt="SRS Testing Image">
     </section>
 
@@ -79,10 +99,7 @@
             <li>Stress testing under various load conditions.</li>
             <li>Hardware integration tests with proof of work.</li>
         </ul>
-        <video controls>
-            <source src="hrs-testing-video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+
         <img src="hrs-testing-image.jpg" alt="HRS Testing Image">
     </section>
 
@@ -94,7 +111,7 @@
     </section>
 
     <footer>
-        <p>Project by HT</p>
+        <p>Project by HT RZW, QYX</p>
     </footer>
 </body>
 </html>
