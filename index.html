@@ -64,9 +64,11 @@
         <h2>1. Video Presentation</h2>
         <hr>
         <p>Click the picture to watch the video:</p>
-        <a href="https://youtu.be/YMLCRkXXhso" target="_blank">
+        <div align="center">
+            <a href="https://youtu.be/YMLCRkXXhso" target="_blank">
             <img src="images/video_cover.JPG" alt="Video Thumbnail" style="width: 100%; max-width: 560px;">
-        </a>
+            </a>
+        </div>
     </section>
     <br><br>
 
@@ -82,7 +84,9 @@
             <li>From cloud to device, the users' remote control demand is transmitted via digital GPIOs and recognized via interrupts(pin change interrupt).
             </ul>
         </p>
-        <img src="images/block_diagram.jpg" alt="The whole Smart home">
+        <div align="center">
+            <img src="images/block_diagram.jpg" alt="The whole Smart home">
+        </div>
     </section>
     <br><br>
     
@@ -94,11 +98,17 @@
         <h2>3. Images</h2>
         <hr>
         <h3>system overview</h3>
-        <img src="images/whole_system.jpg" alt="The whole Smart home">
+        <div align="center">
+            <img src="images/whole_system.jpg" alt="The whole Smart home">
+        </div>
         <h3>segment circuitry</h3>
-        <img src="images/circutry.jpg" alt="Segment system circuitry">
+        <div align="center">
+            <img src="images/circutry.jpg" alt="Segment system circuitry">
+        </div>
         <h3>UI(User Interface)</h3>
-        <img src="images/ui.jpg" alt="The whole Smart home">
+        <div align="center">
+            <img src="images/ui.jpg" alt="The whole Smart home">
+        </div>
     </section>
     <br><br>
 
@@ -208,8 +218,12 @@
            Therefore, we applied the JSON message pack for our SPI message, withe the format <code>"sensor:""downlink/ds/DATASTREAM","value":data</code>, where <code>downlink/ds/DATASTREAM</code> refers to the <code>Virtual Pin</code> each sensor/acuator nested with and <code>data</code> is exactly its reading/state.
            <ul>
             <li>Initial Validation:<br>
-            <img src="images/spi_at_to_esp.png" alt="spi validation 1">
-            <img src="images/spi_esp_to_at.png" alt="spi validation 2">
+            <div align="center">
+                <img src="images/spi_at_to_esp.png" alt="spi validation 1">
+            </div>
+            <div align="center">
+                <img src="images/spi_esp_to_at.png" alt="spi validation 2">
+            </div>
            </ul>
            <br>
 
@@ -219,7 +233,9 @@
            Codes could be seen in the <a href="https://github.com/HTUPENN/ESE519Smart-Devices-SmartHome-Ciruit-Circus/tree/main/code/esp32">esp32 folder</a> and <a href="https://github.com/HTUPENN/ESE519Smart-Devices-SmartHome-Ciruit-Circus/tree/main/code/remote_control">remote_control folder</a>.</p>
            <ul>
             <li>Cloud setting:<br>
-            <img src="images/cloud_setting.png" alt="cloud setting">
+            <div align="center">
+                <img src="images/cloud_setting.png" alt="cloud setting">\
+            </div>
            </ul>
         <br>
 
@@ -228,7 +244,9 @@
            More specifically, the IoT messaging is uploading extracted sensors' readings and acuators' state from the received SPI message to the Blynk cloud and using Blynk app as the medium to monitor the smart hourse state and deliver remote control demands.
            <ul>
             <li> Validation:<br>
-            <img src="images/spi+mqtt.png" alt="MQTT validation">
+            <div align="center">
+                <img src="images/spi+mqtt.png" alt="MQTT validation">
+            </div>
            </ul>
         </p>
 
