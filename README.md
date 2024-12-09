@@ -2,6 +2,8 @@
 
     * Team Name: Circuit circus
     * Team Members: Hao Tan, Qingyang Xu, Ruizhe Wang
-    * Github Repository URL: https://github.com/upenn-embedded/final-project-circuit-circus.git
+    * Github Repository URL: https://github.com/HTUPENN/ESE519Smart-Devices-SmartHome-Ciruit-Circus.git
     * Github Pages Website URL: [for final submission]
-    * Description of hardware: (embedded hardware, laptop, etc) 
+    * Description of hardware: 
+       ATmega328PB XPLAINED MINI
+       ESP32-FeatherS2
