@@ -258,8 +258,8 @@
     <section>
         <h2>5. HRS Validation</h2>
         <hr>
-        <h5>Notes: All the detailed tested data from the sensor and some test videoes refer to: <a href="https://github.com/upenn-embedded/final-project-circuit-circus/blob/main/README.md">How we test? Collected data, images and videoes (Search Requirements Specification(HRS) Achievement on the Readme)</a>.<br>
-            Remotely Control skip to 1:14 and 6:31 in the <a href="https://www.youtube.com/watch?v=YMLCRkXXhso">Fianl Demo Video</a> at top.</h5>     
+    <!--    <h5>Notes: The detailed tested data from the sensor and test videoes refer to: <a href="https://github.com/upenn-embedded/final-project-circuit-circus/blob/main/README.md">Requirements Specification(HRS) Achievement</a><br>  -->
+    Remotely Control skip to 1:14 and 6:31 in the <a href="https://www.youtube.com/watch?v=YMLCRkXXhso">Fianl Demo Video</a></h5>     
         
 
     <section>
@@ -270,7 +270,7 @@
             <li><b><i>Remote Control and Monitoring:</i></b></i><br>
                 Humidity and temperature data are displayed in the Blynk app, allowing users to monitor environmental conditions and remotely control the windows (open/close) via the app.</li>
             <li><b><i>Validation:</i></b></i><br>
-                The system was tested in both high- and low-humidity environments. In a high-humidity setup, the window closed automatically, and in a low-humidity setup, the window opened. For demonstration video, skip to 2:28 in the Fianl Demo Video at top</li>
+                The Humidity Sensor can detect a range of Humidity from 0% to 100%. Typically, the system was tested in both high (80%)- and low-humidity (30%) environments. In a high-humidity setup, the window closed automatically, and in a low-humidity setup, the window opened. Additionally, the temperature (Ranged from 0°C to 50°C) is also monitored and displayed on the Blynk app. </li>
         </ul>
     </section>
     <br>
@@ -282,11 +282,8 @@
             <li><b><i>Automated Control:</i></b></i><br>
                 The system adjusts to changing light conditions. As outdoor light decreases (indicating evening), it gradually turns on LEDs (ws2812) for ambient lighting and closes the curtains using a step motor. Conversely, as outdoor light increases (indicating morning), the curtains automatically open. Curtain motor is connected to a H-bridge to control the close/open of the curtain through Through our curtain-motor driver function.</li>
             <li><b><i>Validation</i></b></i><br>
-                The system was tested under varying light intensities to simulate day and night conditions. Proper functionality of both the LEDs and curtain motors was verified. For demonstrations, refer to the following timestamps in the Fianl Demo Video:
-                    <ul>
-                    <li>Auto Ambient Lighting: Skip to 5:58</li>
-                    <li>Auto Curtain Control: Skip to 6:54</li>
-                    </ul>
+                The Light Sensor (BH1750) can detect a range of lux from 0 to about 4000 lux. The system was tested under varying light intensities to simulate day and night conditions. Proper functionality of both the LEDs and curtain motors was verified, nighttime; the curtain is closed using the motor and daytime; the curtain is opened using the motor.
+
         </ul>
     </section>
     <br>
@@ -300,7 +297,7 @@
             <li><b><i>Automated Control:</i></b></i><br>
                 When unauthorized motion is detected near the entrance, the system automatically activates a buzzer and LED alarm to notify of potential intrusion.</li>
             <li><b><i>Validation</i></b></i><br>
-                The system was tested by simulating motion near the sensor. Both the buzzer and LED alarm were confirmed to activate as expected. The test setup and results were recorded in video format. Refer to the demonstration video at timestamp 4:52 for details.</li>
+                The system was tested by simulating motion near the sensor. When a hand was waved in front of it, both the buzzer and LED alarm were successfully activated as expected. The test setup and results were documented in a video recording.</li>
         </ul>
     </section>
     <br>
@@ -313,7 +310,7 @@
             <li><b><i>Automated Control:</i></b></i><br>
                 When smoke levels exceed a safe threshold, the system automatically activates a 5V exhaust fan to ventilate the area and triggers a smoke alarm using a buzzer for immediate notification.</li>
             <li><b><i>Validation</i></b></i><br>
-                The system was tested under simulated smoke conditions. Both the fan activation and buzzer alarm were verified to function correctly. For a demonstration, refer to the Final Demo Video at the top, timestamp 3:41.</li>
+                The MQ-9B gas sensor detects carbon monoxide (CO) and combustible gases, including methane and liquefied petroleum gas. The system was tested under simulated smoke conditions by using alcohol concentration as a substitute (as smoking is prohibited in the laboratory). The sensor can detect gas concentrations ranging from 10 ppm to 1000 ppm. When the alcohol concentration exceeds 200 ppm, both the fan and buzzer are activated as expected; otherwise, they remain off.</li>
         </ul>
     </section>
     <br>
@@ -325,7 +322,7 @@
             <li><b><i>Automated Control:</i></b></i><br>
                 When seismic activity, such as an earthquake, is detected, the system automatically triggers an earthquake alarm, activating both a buzzer and an LED to alert users.</li>
             <li><b><i>Validation:</i></b></i><br>
-                The system was tested by simulating vibration conditions to mimic seismic activity. The buzzer and LED alarm were confirmed to activate correctly. For a demonstration, refer to the video at timestamp 5:32.</li>
+                The gyroscope/vibration sensor can measure acceleration in three directions. To detect earthquakes, I used the total acceleration (the vector sum of the three directions). During manual shaking, the maximum value reached approximately 3.5g, while in a stationary state, it ranged from 0.98 to 1.00g. The system was tested under simulated vibration conditions to mimic seismic activity (>1.5g). Both the buzzer and LED alarm were confirmed to activate correctly. </li>
         </ul>
     </section>
     <br>
@@ -336,7 +333,7 @@
         <h3>HR 06 - Remotely Controlled Door with SG90 Motor</h3>
         <ul>
             <li><b><i>Validation:</i></b></i><br>
-                The door can be open/closed via phone remotely. For a demonstration, refer to the video at timestamp 6:33.</li>
+                The door can be opened or closed remotely via a phone. Since there is no quantifiable way to measure or verify this feature, please refer to the Final Demo Video for validation and demonstration.</li>
         </ul>
     </section>
     <br>
@@ -348,7 +345,7 @@
             <li><b><i>Description:</i></b></i><br>
                 Except the auto-controlling, sensor data and motor/actuator states are transmitted to the ESP32 and published to the Blynk cloud, enabling remote monitoring and control via a smartphone app.</li>
             <li><b><i>Validation:</i></b></i><br>
-                Controlled motors and actuators through the app and confirmed synchronization with the physical system. The control process and state monitoring UI skip to 1:14 and 6:31</li>
+                Controlled motors and actuators through the app and confirmed synchronization with the physical system. The control process and state monitoring UI refer to the Final Demo Video</li>
         </ul>
     </section>
     <br>
