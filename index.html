@@ -14,11 +14,8 @@
         header, section, footer {
             margin-bottom: 20px;
         }
-        h1, h2 {
+        h1,h5{
             color: #007ACC;
-        }
-        h3 {
-        color: #007ACC; /* 这里是图片中蓝色的颜色代码 */
         }
         img {
             max-width: 100%;
@@ -34,8 +31,9 @@
 </head>
 <body>
     <header>
-        <h1>Smart Home!</h1>
+        <h1>ESE 5190 Final Project - Smart Home</h1>
     </header>
+    <br>
 
 
     <!-- Team Information -->
@@ -44,224 +42,320 @@
         <p><strong>Team Number:</strong> 6</p>
         <p><strong>Team Name:</strong> Circuit Circus</p>
         <p><strong>Team Members:</strong> Hao Tan, Qingyang Xu, Ruizhe Wang</p>
-        <p><strong>GitHub Repository:</strong> 
+        <p><strong>GitHub Repository(Full Progress) URL:</strong> 
             <a href="https://github.com/upenn-embedded/final-project-circuit-circus.git" target="_blank">
                 https://github.com/upenn-embedded/final-project-circuit-circus.git
             </a>
         </p>
+        <p><strong>Github Repository(Website) URL:</strong> 
+            <a href="https://github.com/HTUPENN/ESE519Smart-Devices-SmartHome-Ciruit-Circus.git" target="_blank">
+                https://github.com/HTUPENN/ESE519Smart-Devices-SmartHome-Ciruit-Circus.git
+            </a>
+        </p>
+        <p><strong>Description of hardware(MCU):</strong><br> 
+            ATmega328PB XPLAINED MINI<br>
+            ESP32-FeatherS2<br>
+        </p>
     </section>
+    <br><br>
 
-    <!-- 0. Video of the Final Product -->
+    <!-- 1. Video of the Final Product -->
     <section>
-        <h2>Fianl Demo Video</h2>
-        <p>Click to watch the video:</p>
+        <h2>1. Video Presentation</h2>
+        <hr>
+        <p>Click the picture to watch the video:</p>
         <a href="https://youtu.be/YMLCRkXXhso" target="_blank">
-            <img src="videocover.jpg" alt="Video Thumbnail" style="width: 100%; max-width: 560px;">
+            <img src="images/video_cover.JPG" alt="Video Thumbnail" style="width: 100%; max-width: 560px;">
         </a>
     </section>
+    <br><br>
 
 
-        <!-- 1. Discription -->
+        <!-- 2. Discription -->
     <section>
-        <h2>Discription</h2>
-        <p>This project was a significant learning experience in IoT system design, integrating hardware and software to create an intelligent, automated home. This IoT-based smart home system capable of automating multiple home appliances and transmitting real-time data to a smartphone app for bidirectional control. The system integrates a variety of sensors, motors, and communication protocols, enabling responsive and customizable functionality. The core control logic was programmed into an ATmega328PB Xplained Board, which communicates with an ESP32 microcontroller via SPI, and data is further transmitted to the Blynk cloud through MQTT.</p>
+        <h2>2. Project Summary</h2>
+        <hr>
+        <p>This project was an embedded project with IoT inteaction, allowing for both automatic and user's remote control over home appliances.<br>
+           ATmega328PB XPLAINED MINI board was chosen as the manipulator that driving all acuators to be automatic against their correspodning sensors' readings or remote control demands, while ESP32-FeatherS2 board was selected as the communication relay station for the bidirectional messages transmissions.<br>
+           <ul>
+            <li>From device to cloud, the sensors's readings and acuators' state are transmitted ATmega328PB XPLAINED MINI to ESP32-FeatherS2 via SPI and then published to cloud with MQTT;
+            <li>From cloud to device, the users' remote control demand is transmitted via digital GPIOs and recognized via interrupts(pin change interrupt).
+            </ul>
+        </p>
+        <img src="images/block_diagram.jpg" alt="The whole Smart home">
     </section>
+    <br><br>
+    
 
 
 
     <!-- 2. Images  -->
     <section>
-        <h2>Images</h2>
-        <p>The below figures illlustrated the segment and whole system circuitry, where we used ATmega328PB as the manipulator programmed in bare metal C, and ESP32-FeatherS2 as the communication station to receive manipulator's feedback via SPI and publish to the IoT cloud(Blynk cloud) and deliver remote control demand from the user(typical Blynk app) back to the manipulator.</p>
-        <img src="one_part.jpg" alt="Segment system circuitry">
-        <img src="whole_system.jpg" alt="The whole Smart home">
+        <h2>3. Images</h2>
+        <hr>
+        <h3>system overview</h3>
+        <img src="images/whole_system.jpg" alt="The whole Smart home">
+        <h3>segment circuitry</h3>
+        <img src="images/circutry.jpg" alt="Segment system circuitry">
+        <h3>UI(User Interface)</h3>
+        <img src="images/ui.jpg" alt="The whole Smart home">
     </section>
+    <br><br>
 
     <!-- 3. SRS Validation -->
     <section>
-        <h2>SRS Validation</h2>
+        <h2>4. SRS Validation</h2>
     </section>
+    <hr>
 
     <section>
-        <h3>SRS01: Sensors' driving, reading and sensor-based acuator control</h3>
-    </section>
+        <h3>SR 01 - Sensor testing and calibration:</h3>
 
- <section>
-    <h4>1: Light Sensor (BH1750) with Curtain Motor</h4>
-    <p><strong>Communication Protocol:</strong> The BH1750 communicates with the microcontroller using the I2C protocol to transfer lux data.</p>
-    <p><strong>Data Transfer and Motor Driver:</strong> Lux data is transfered via I2C, and sent to Atmega328PB which set signals to control the curtain motor.</p>
-    <p><strong>Control Logic:</strong></p>
-    <ul>
-        <li>Low Lux (< 200): Indicates nighttime; the curtain is closed using the motor (<code>motor_backward</code>).</li>
-        <li>Moderate Lux (200–3000): Indicates daytime; the curtain is opened using the motor (<code>motor_forward</code>).</li>
-    </ul>
-</section>
-
-<section>
-    <h4>2: Gyroscope Sensor (GY521) with LED and buzzer</h4>
-    <p><strong>Communication Protocol:</strong> The GY521 communicates with the microcontroller using the I2C protocol, providing acceleration data across x, y, and z axes.</p>
-    <p><strong>Data Transfer and LED Driver:</strong> Acceleration data is processed via I2C, and sent to Atmega328PB which light the LED through GPIO pins and sound a buzzer using PWM GPIO.</p>
-    <p><strong>Control Logic:</strong></p>
-    <ul>
-        <li>Acceleration exceeds 1.50g: An earthquake is detected, and the LED and buzzeralarm is activated. (Simulations use 1.5g to prevent false triggers; theoretical threshold is 1.02g.)</li>
-    </ul>
-</section>
-
-<section>
-    <h4>3: Smoke Sensor (MQ-9B) with Buzzer Alarm and Fan</h4>
-    <p><strong>Communication Protocol:</strong> The MQ-9B outputs an analog signal representing the concentration of smoke or harmful gases, which is read via the ADC on the microcontroller.</p>
-    <p><strong>Data Transfer and Actuator Driver:</strong> Sensor data is converted to digital form via the ADC, and control signals are sent to the buzzer and fan via GPIO and motor driver function in Atmega328PB.</p>
-    <p><strong>Control Logic:</strong></p>
-    <ul>
-        <li>Low Smoke (< 50 ppm): Normal air quality; no action is taken.</li>
-        <li>High Smoke (> 200 ppm): Hazardous levels; the buzzer emits a continuous alarm, and the fan turns on for ventilation.</li>
-    </ul>
-</section>
-
-<section>
-    <h4>4: Humidity Sensor (DHT11) with Automatic Windom Motor (SG90)</h4>
-    <p><strong>Communication Protocol:</strong> The DHT11 uses a simple one-wire protocol to communicate with the microcontroller.</p>
-    <p><strong>Data Transfer and Motor Driver:</strong> Humidity data is transferred via the one-wire protocol, and control signals are sent to the SG90 motor through a motor driver funtion.</p>
-    <p><strong>Control Logic:</strong></p>
-    <ul>
-        <li>Low Humidity (< 30%) and Moderate Lux (> 200): Sunny conditions; The window open.(<code>motor at 0 degrees</code>)</li>
-        <li>High Humidity (> 80%): Excessive moisture; The window close. (<code>motor at 90 degrees</code>).</li>
-    </ul>
-</section>
-
-<section>
-    <h4>5: PIR Sensor (HC-SR501) with Buzzer and LED</h4>
-    <p><strong>Communication Protocol:</strong> The HC-SR501 outputs a digital high/low signal to the microcontroller, indicating motion detection status.</p>
-    <p><strong>Data Transfer and Actuator Driver:</strong> Motion detection signals are received via GPIO pins, and the buzzer and LED are controlled through GPIO outputs.</p>
-    <p><strong>Control Logic:</strong></p>
-    <ul>
-        <li>No Motion Detected: Both buzzer and LED remain off.</li>
-        <li>Motion Detected: The buzzer emits an alert sound, and the LED flashes to indicate intrusion.</li>
-    </ul>
-</section>
+            <ol>
+                <b><i><li>Light Sensor (BH1750) with Curtain Motor:</i></b>
+                <ul>
+                    <u><li>Communication Protocol:</u><br> 
+                        The BH1750 communicates with the microcontroller using the I2C protocol to transfer lux data.
+                    <u><li>Data Transfer and Motor Driver:</u><br>
+                         Lux data is transfered via I2C, and sent to Atmega328PB which set signals to control the curtain motor.
+                    <u><li>Control Logic:</u><br>
+                        <ul>
+                            <li>Low Lux (< 200): Indicates nighttime; the curtain is closed using the motor (<code>motor_backward</code>).</li>
+                            <li>Moderate Lux (200–3000): Indicates daytime; the curtain is opened using the motor (<code>motor_forward</code>).</li>
+                        </ul>
+                </ul>
+                <br>
+                
+                <b><i><li>Gyroscope Sensor (GY521) with LED and buzzer:</i></b>
+                <ul>
+                    <u><li>Communication Protocol:</u><br> 
+                        The GY521 communicates with the microcontroller using the I2C protocol, providing acceleration data across x, y, and z axes.
+                    <u><li>Data Transfer and LED Driver:</u><br>
+                        Acceleration data is processed via I2C, and sent to Atmega328PB which light the LED through GPIO pins and sound a buzzer using PWM GPIO.
+                    <u><li>Control Logic:</u><br>
+                        <ul>
+                            <li>Acceleration exceeds 1.50g: An earthquake is detected, and the LED and buzzeralarm is activated. (Simulations use 1.5g to prevent false triggers; theoretical threshold is 1.02g.)</li>
+                        </ul>
+                </ul>
+                <br>
 
 
-    <h3>SRS 02: Task Integration, Sensor-Based Actuator Control</h3>
-    <ul>
-        <li>
-            <strong>Temperature & Humidity Sensor + Light Sensor:</strong> 
-            Integrated to control the curtain step motor based on environmental conditions.
-        </li>
-        <li>
-            <strong>Light Sensor:</strong> Used to control the LED stripe for ambient lighting adjustments and auto-curtain.
-        </li>
-        <li>
-            <strong>Temperature & Humidity Sensor:</strong> Used to control the window NEMA 17 step motor for automated window adjustments.
-        </li>
-        <li>
-            <strong>Smoke Sensor:</strong> Used to control the KY-012 sounder and fan, providing ventilation and alarms in hazardous conditions.
-        </li>
-        <li>
-            <strong>Gyroscope:</strong> Used to trigger the KY-012 sounder during seismic events, simulating earthquake alarms.
-        </li>
-        <li>
-            <strong>Human Sensor (PIR Motor):</strong> Used to control the KY-012 sounder for intrusion detection, emitting an audible alarm upon unauthorized motion.
-        </li>
-    </ul>
+                <b><i><li>Smoke Sensor (MQ-9B) with Buzzer Alarm and Fan:</i></b>
+                    <ul>
+                        <u><li>Communication Protocol:</u><br> 
+                            The MQ-9B outputs an analog signal representing the concentration of smoke or harmful gases, which is read via the ADC on the microcontroller.
+                        <u><li>Data Transfer and Actuator Driver:</u><br>
+                            Sensor data is converted to digital form via the ADC, and control signals are sent to the buzzer and fan via GPIO and motor driver function in Atmega328PB.
+                        <u><li>Control Logic:</u><br>
+                            <ul>
+                                <li>Low Smoke (< 50 ppm): Normal air quality; no action is taken.</li>
+                                <li>High Smoke (> 200 ppm): Hazardous levels; the buzzer emits a continuous alarm, and the fan turns on for ventilation.</li>
+                            </ul>
+                </ul>
+                <br>
 
+                <b><i><li>Humidity Sensor(DHT11) with Automatic Windom Motor(SG90):</i></b>
+                    <ul>
+                        <u><li>Communication Protocol:</u><br> 
+                            The DHT11 uses a simple one-wire protocol to communicate with the microcontroller.
+                        <u><li>Data Transfer and Motor Driver:</u><br>
+                            Humidity data is transferred via the one-wire protocol, and control signals are sent to the SG90 motor through a motor driver funtion.
+                        <u><li>Control Logic:</u><br>
+                            <ul>
+                                <li>Low Humidity (< 30%) and Moderate Lux (> 200): Sunny conditions; The window open.(<code>motor at 0 degrees</code>)</li>
+                                <li>High Humidity (> 80%): Excessive moisture; The window close. (<code>motor at 90 degrees</code>).</li>
+                            </ul>
+                </ul>
+                <br>
+            
+                <b><i><li>PIR Sensor (HC-SR501) with Buzzer and LED:</i></b>
+                    <ul>
+                        <u><li>Communication Protocol:</u><br> 
+                            The HC-SR501 outputs a digital high/low signal to the microcontroller, indicating motion detection status.
+                        <u><li>Data Transfer and Actuator Driver:</u><br>
+                            Motion detection signals are received via GPIO pins, and the buzzer and LED are controlled through GPIO outputs.
+                        <u><li>Control Logic:</u><br>
+                            <ul>
+                                <li>No Motion Detected: Both buzzer and LED remain off.</li>
+                                <li>Motion Detected: The buzzer emits an alert sound, and the LED flashes to indicate intrusion.</li>
+                            </ul>
+                </ul>
+            </ol>
+        <br>
+
+
+        <h3>SR 02 - Sensor-based acuator control:</h3>
+            <ul>
+                <b><i><li>Temperature & Humidity Sensor + Light Sensor:</i></b>
+                Integrated to control the curtain step motor based on environmental conditions.</li>
+                <b><i><li>Light Sensor:</i></b>
+                Used to control the LED stripe for ambient lighting adjustments and auto-curtain.</li>
+                <b><i><li>Temperature & Humidity Sensor:</i></b>
+                Used to control the window NEMA 17 step motor for automated window adjustments.</li>
+                <b><i><li>Smoke Sensor:</i></b>
+                Used to control the KY-012 sounder and fan, providing ventilation and alarms in hazardous conditions.</li>
+                <b><i><li>Gyroscope:</i></b>
+                Used to trigger the KY-012 sounder during seismic events, simulating earthquake alarms.</li>
+                <b><i><li>Human Sensor(PIR motion sensor):</i></b>
+                Used to control the KY-012 sounder for intrusion detection, emitting an audible alarm upon unauthorized motion.</li>
+            </ul>
+        <br>
+
+        <h3>SR 03 - SPI communications between ATmega328PB XPLAINED MINI and ESP32-FeatherS2:</h3>
+        <p>Regarding the bidirectional property of our proposed whole communication scheme, SPI would be a really usefula and effective protocol.<br>
+           Given this scenario, SPI driver prgramming were accomplished for both ATmega328PB and ESP32-FeatherS2 in bare metal C and Arduino C respectively, where ESP32-FeatherS2 functioned as the "master" and ATmega328PB as the "slave".<br><br>
+           Further, unlike CAN communication, whose data frame has intrinsic identifier for checking transmitter, SPI data frame is only contains the data. Howevere, it is of vital significance to efffectively and accurately identify which the incoming SPI data belongs to.
+           Therefore, we applied the JSON message pack for our SPI message, withe the format <code>"sensor:""downlink/ds/DATASTREAM","value":data</code>, where <code>downlink/ds/DATASTREAM</code> refers to the <code>Virtual Pin</code> each sensor/acuator nested with and <code>data</code> is exactly its reading/state.
+           <ul>
+            <li>Initial Validation:<br>
+            <img src="images/spi_at_to_esp.png" alt="spi validation 1">
+            <img src="images/spi_esp_to_at.png" alt="spi validation 2">
+           </ul>
+           <br>
+
+           However,  in our real trials, we trapped in the reverse SPI(from ESP32-FeatherS2 to ATmega328PB), specifically, suffering the buffer congestion at ATmega328PB, since for this MCU, its transmitting and receiving share the same data register, that is we need to stop the on-going trasnmission of ATmega328PB for remote control message.<br>
+           Even tried everal methods, including before actual data pack, sending a single one byte with value 1/0 to switch the ATmega328PB transmission mode; using an external digital GPIO to notify ATmega328PB if reverse SPI is attempted, but all are not robust, some would achieve one round transmission and then frozen.<br>
+           Encountering thsi worst scenario, we finial decieded to follow lab4 methdology that seperate the MQTT message publishing and remote control, that is we still using <code>PubSubClient& PubSubClient::setCallback(MQTT_CALLBACK_SIGNATURE)</code> funtion to receive any remote control demands, but using extra digital GPIOs to send back the control demands to achieve robust bidirectional controls over several appliances.<br>
+           Codes could be seen in the <a href="https://github.com/HTUPENN/ESE519Smart-Devices-SmartHome-Ciruit-Circus/tree/main/code/esp32">esp32 folder</a> and <a href="https://github.com/HTUPENN/ESE519Smart-Devices-SmartHome-Ciruit-Circus/tree/main/code/remote_control">remote_control folder</a>.</p>
+           <ul>
+            <li>Cloud setting:<br>
+            <img src="images/cloud_setting.png" alt="cloud setting">
+           </ul>
+        <br>
+
+        <h3>SR 04 - MQTT IoT message publishing and subscribing:</h3>
+        <p>Following the <a href="https://github.com/knolleary/pubsubclient">external MQTT library</a>, we published the sensors' readings and acuators' state in the main loop, while receiving remote control in the <code>PubSubClient& PubSubClient::setCallback(MQTT_CALLBACK_SIGNATURE)</code> function.<br>
+           More specifically, the IoT messaging is uploading extracted sensors' readings and acuators' state from the received SPI message to the Blynk cloud and using Blynk app as the medium to monitor the smart hourse state and deliver remote control demands.
+           <ul>
+            <li> Validation:<br>
+            <img src="images/spi+mqtt.png" alt="MQTT validation">
+           </ul>
+        </p>
+
+    <br><br>
 
 </section>
 
     <!-- 4. HRS Validation -->
     <section>
-        <h2>HRS Validation</h2>
-        <h4>Noted: All the detailed tested data from the sensor and some test videoes refer to: <a href="https://github.com/upenn-embedded/final-project-circuit-circus/blob/main/README.md">How we test? Collected data, images and videoes (Search Requirements Specification(HRS) Achievement on the Readme)</a> </h4>    
-    
-        <h4>Remotely Control skip to 1:14 and 6:31 in the <a href="https://www.youtube.com/watch?v=YMLCRkXXhso">Fianl Demo Video</a> at top;</h4>    
+        <h2>5. HRS Validation</h2>
+        <hr>
+        <h5>Notes: All the detailed tested data from the sensor and some test videoes refer to: <a href="https://github.com/upenn-embedded/final-project-circuit-circus/blob/main/README.md">How we test? Collected data, images and videoes (Search Requirements Specification(HRS) Achievement on the Readme)</a>.<br>
+            Remotely Control skip to 1:14 and 6:31 in the <a href="https://www.youtube.com/watch?v=YMLCRkXXhso">Fianl Demo Video</a> at top.</h5>     
         
 
     <section>
-        <h3>HRS01: Humidity Sensor (DHT11) with Automated Window Control</h3>
-        <p><strong>Automated Control:</strong> The system automatically closes or opens the windows using a NEMA 17 step motor when the detected humidity exceeds or falls below a set threshold and rain is detected.</p>
-        <p><strong>Remote Control and Monitoring:</strong> Humidity and temperature data are displayed in the Blynk app, allowing users to monitor environmental conditions and remotely control the windows (open/close) via the app.</p>
-        <p><strong>Validation:</strong> The system was tested in both high- and low-humidity environments. In a high-humidity setup, the window closed automatically, and in a low-humidity setup, the window opened. For demonstration video, skip to 2:28 in the Fianl Demo Video at top</p>
+        <h3>HR 01 - Humidity Sensor (DHT11) with Automated Window Control</h3>
+        <ul>
+            <li><b><i>Automated Control:</i></b></i><br>
+                The system automatically closes or opens the windows using a NEMA 17 step motor when the detected humidity exceeds or falls below a set threshold and rain is detected.</li>
+            <li><b><i>Remote Control and Monitoring:</i></b></i><br>
+                Humidity and temperature data are displayed in the Blynk app, allowing users to monitor environmental conditions and remotely control the windows (open/close) via the app.</li>
+            <li><b><i>Validation:</i></b></i><br>
+                The system was tested in both high- and low-humidity environments. In a high-humidity setup, the window closed automatically, and in a low-humidity setup, the window opened. For demonstration video, skip to 2:28 in the Fianl Demo Video at top</li>
+        </ul>
     </section>
+    <br>
 
     <!-- Light Sensor -->
     <section>
-        <h3>HRS02: Light Sensor (BH1750) with Automated Lighting and Curtain Control</h3>
-
-        <p><strong>Automated Control:</strong> The system adjusts to changing light conditions. As outdoor light decreases (indicating evening), it gradually turns on LEDs (ws2812) for ambient lighting and closes the curtains using a step motor. Conversely, as outdoor light increases (indicating morning), the curtains automatically open. Curtain motor is connected to a H-bridge to control the close/open of the curtain through Through our curtain-motor driver function</p>
-
-        <p><strong>Validation:</strong> The system was tested under varying light intensities to simulate day and night conditions. Proper functionality of both the LEDs and curtain motors was verified. For demonstrations, refer to the following timestamps in the Fianl Demo Video:
+        <h3>HR 02 - Light Sensor (BH1750) with Automated Lighting and Curtain Control</h3>
         <ul>
-            <li>Auto Ambient Lighting: Skip to 5:58</li>
-            <li>Auto Curtain Control: Skip to 6:54</li>
+            <li><b><i>Automated Control:</i></b></i><br>
+                The system adjusts to changing light conditions. As outdoor light decreases (indicating evening), it gradually turns on LEDs (ws2812) for ambient lighting and closes the curtains using a step motor. Conversely, as outdoor light increases (indicating morning), the curtains automatically open. Curtain motor is connected to a H-bridge to control the close/open of the curtain through Through our curtain-motor driver function.</li>
+            <li><b><i>Validation</i></b></i><br>
+                The system was tested under varying light intensities to simulate day and night conditions. Proper functionality of both the LEDs and curtain motors was verified. For demonstrations, refer to the following timestamps in the Fianl Demo Video:
+                    <ul>
+                    <li>Auto Ambient Lighting: Skip to 5:58</li>
+                    <li>Auto Curtain Control: Skip to 6:54</li>
+                    </ul>
         </ul>
-        </p>
     </section>
+    <br>
 
 
 
     <!-- Motion Sensor -->
     <section>
-        <h3>HRS03: Motion Sensor (PIR HC-SR501) with Intrusion Detection</h3>
-
-        <p><strong>Automated Control:</strong> When unauthorized motion is detected near the entrance, the system automatically activates a buzzer and LED alarm to notify of potential intrusion.</p>
-
-        <p><strong>Validation:</strong> The system was tested by simulating motion near the sensor. Both the buzzer and LED alarm were confirmed to activate as expected. The test setup and results were recorded in video format. Refer to the demonstration video at timestamp 4:52 for details.</p>
-
-
+        <h3>HR 03 - Motion Sensor (PIR HC-SR501) with Intrusion Detection</h3>
+        <ul>
+            <li><b><i>Automated Control:</i></b></i><br>
+                When unauthorized motion is detected near the entrance, the system automatically activates a buzzer and LED alarm to notify of potential intrusion.</li>
+            <li><b><i>Validation</i></b></i><br>
+                The system was tested by simulating motion near the sensor. Both the buzzer and LED alarm were confirmed to activate as expected. The test setup and results were recorded in video format. Refer to the demonstration video at timestamp 4:52 for details.</li>
+        </ul>
     </section>
+    <br>
 
 
         <!-- Smoke Sensor -->
     <section>
-      <h3>HRS04: Fresh Air System with Smoke Sensor (MQ-9B) and Smoke Detection and Alarm</h3>
-
-        <p><strong>Automated Control:</strong> When smoke levels exceed a safe threshold, the system automatically activates a 5V exhaust fan to ventilate the area and triggers a smoke alarm using a buzzer for immediate notification.</p>
-
-        <p><strong>Validation:</strong> The system was tested under simulated smoke conditions. Both the fan activation and buzzer alarm were verified to function correctly. For a demonstration, refer to the Final Demo Video at the top, timestamp 3:41.</p>
-
+        <h3>HRS04 - Fresh Air System with Smoke Sensor (MQ-9B) and Smoke Detection and Alarm</h3>
+        <ul>
+            <li><b><i>Automated Control:</i></b></i><br>
+                When smoke levels exceed a safe threshold, the system automatically activates a 5V exhaust fan to ventilate the area and triggers a smoke alarm using a buzzer for immediate notification.</li>
+            <li><b><i>Validation</i></b></i><br>
+                The system was tested under simulated smoke conditions. Both the fan activation and buzzer alarm were verified to function correctly. For a demonstration, refer to the Final Demo Video at the top, timestamp 3:41.</li>
+        </ul>
     </section>
+    <br>
 
     <!-- Gyroscope/Vibration Sensor -->
     <section>
-        <h3>HRS05: Gyroscope/Vibration Sensor (GY521) with Earthquake Detection</h3>
-
-        <p><strong>Automated Control:</strong> When seismic activity, such as an earthquake, is detected, the system automatically triggers an earthquake alarm, activating both a buzzer and an LED to alert users.</p>
-
-        <p><strong>Validation:</strong> The system was tested by simulating vibration conditions to mimic seismic activity. The buzzer and LED alarm were confirmed to activate correctly. For a demonstration, refer to the video at timestamp 5:32.</p>
+        <h3>HR 05 - Gyroscope/Vibration Sensor (GY521) with Earthquake Detection</h3>
+        <ul>
+            <li><b><i>Automated Control:</i></b></i><br>
+                When seismic activity, such as an earthquake, is detected, the system automatically triggers an earthquake alarm, activating both a buzzer and an LED to alert users.</li>
+            <li><b><i>Validation:</i></b></i><br>
+                The system was tested by simulating vibration conditions to mimic seismic activity. The buzzer and LED alarm were confirmed to activate correctly. For a demonstration, refer to the video at timestamp 5:32.</li>
+        </ul>
     </section>
+    <br>
 
 
     <!-- Remotely Controlled Door -->
     <section>
-        <h3>HRS06: Remotely Controlled Door with SG90 Motor</h3>
-
-
-        <p><strong>Validation:</strong>The door can be open/closed via phone remotely. For a demonstration, refer to the video at timestamp 6:33.</p>
+        <h3>HR 06 - Remotely Controlled Door with SG90 Motor</h3>
+        <ul>
+            <li><b><i>Validation:</i></b></i><br>
+                The door can be open/closed via phone remotely. For a demonstration, refer to the video at timestamp 6:33.</li>
+        </ul>
+    </section>
+    <br>
 
     <!-- IoT Control -->
     <section>
-        <h3>HRS07: Remote IoT Control and Monitor: Blynk Integration</h3>
-        <p><strong>Except the auto-controlling,</strong> Sensor data and motor/actuator states are transmitted to the ESP32 and published to the Blynk cloud, enabling remote monitoring and control via a smartphone app.</p>
-
-        <p><strong>Validation:</strong>  Controlled motors and actuators through the app and confirmed synchronization with the physical system. The control process and state monitoring UI skip to 1:14 and 6:31</p>
-    
+        <h3>HR 07 - Remote IoT Control and Monitor: Blynk Integration</h3>
+        <ul>
+            <li><b><i>Description:</i></b></i><br>
+                Except the auto-controlling, sensor data and motor/actuator states are transmitted to the ESP32 and published to the Blynk cloud, enabling remote monitoring and control via a smartphone app.</li>
+            <li><b><i>Validation:</i></b></i><br>
+                Controlled motors and actuators through the app and confirmed synchronization with the physical system. The control process and state monitoring UI skip to 1:14 and 6:31</li>
+        </ul>
     </section>
+    <br>
 
     <section>
     <h3>Performance Metrics and Shortcomings</h3>
-
-    <h4>Performance Metrics</h4>
+    <h4><b><i>Performance Metrics:</i></b></h4>
     <ul>
-        <li><strong>Power Efficiency:</strong> The system operates within a power budget of 12V DC, supporting all sensors and actuators without significant voltage drops.</li>
-        <li><strong>Component Responsiveness:</strong> Motors (e.g., NEMA 17, SG90) responded promptly to control signals, with activation times under 300ms.</li>
-        <li><strong>Sensor Integration:</strong> All sensors (DHT11, MQ-9B, PIR, gyroscope) exhibited stable performance under various environmental conditions.</li>
+        <li><u>Power Efficiency:</u><br> 
+            The system operates within a power budget of 12V DC, supporting all sensors and actuators without significant voltage drops.</li>
+        <li><u>Component Responsiveness:</u><br>
+            Motors (e.g., NEMA 17, SG90) responded promptly to control signals, with activation times under 300ms.</li>
+        <li><u>Sensor Integration:</u><br> 
+            All sensors exhibited stable performance under various environmental conditions.</li>
     </ul>
 
-    <h4>Shortcomings</h4>
+    <h4><b><i>Shortcomings:</i></b></h4>
     <ul>
-        <li><strong>Smoke Sensor:</strong> Reduced sensitivity was observed when operating under extreme temperatures, necessitating recalibration to maintain accuracy.</li>
-        <li><strong>Scalability Limitation:</strong> The reliance on wired SPI for microcontroller communication constrained the system's scalability for larger deployments.</li>
+        <li><u>Smoke Sensor:</u><br> 
+            Reduced sensitivity was observed when operating under extreme temperatures, necessitating recalibration to maintain accuracy.</li>
+        <li><u>Scalability Limitation:</u><br> 
+            The defect in our SPI scheme might constrain the system's scalability for larger deployments. If more sensors and acuators needed, might require wireless module to reduce the receiving buffer load.</li>
     </ul>
 </section>
+<br><br>
 
 
 
@@ -271,17 +365,19 @@
     <section>
         <h2>Conclusion</h2>
         <p>This project was a significant learning experience in IoT system design, integrating hardware and software to create an intelligent, automated home. Key features include environmental monitoring (humidity, light, smoke, motion, and seismic activity), automated control of windows, curtains, and ventilation, intrusion detection, and seamless IoT-based remote control via the Blynk app. Communication between the ATmega328PB and ESP32 ensures real-time data synchronization, providing a responsive, user-friendly, and efficient smart home solution. This IoT-based smart home system capable of automating multiple home appliances and transmitting real-time data to a smartphone app for bidirectional control which integrates a variety of sensors, motors, and communication protocols, enabling responsive and customizable functionality. The core control logic was programmed into an ATmega328PB Xplained Board, which communicates with an ESP32 microcontroller via SPI, and data is further transmitted to the Blynk cloud through MQTT.</p>
+        <br>
 
         <h3>Lessons Learned</h3>
-        <p> Through this project, we realized the importance of thorough testing to ensure sensor reliability under diverse conditions, which is vital for accurate system performance. We also learned to anticipate communication delays in IoT systems and the necessity of designing for fault tolerance to enhance system robustness. The integration process, involving numerous components, consumed significant time and effort, during which we encountered many challenging and hard-to-understand bugs and incompatibilities. These experiences deepened our understanding of embedded systems and equipped us to handle similar issues more effectively in the future.</p>
+        <p>Through this project, we realized the importance of thorough testing to ensure sensor reliability under diverse conditions, which is vital for accurate system performance. We also learned to anticipate communication delays in IoT systems and the necessity of designing for fault tolerance to enhance system robustness. The integration process, involving numerous components, consumed significant time and effort, during which we encountered many challenging and hard-to-understand bugs and incompatibilities. These experiences deepened our understanding of embedded systems and equipped us to handle similar issues more effectively in the future.</p>
+        <br>
 
         <h3>Future Improvements</h3>
-        <p>  To enhance scalability and flexibility, transitioning to wireless communication protocols like Wi-Fi or Zigbee would be beneficial. Incorporating machine learning algorithms could optimize device control by predicting user preferences, while adding energy-saving mechanisms such as solar-powered components would improve sustainability. Given the complexity of this smart home system, using a more powerful board or planning for multiple boards from the start would ensure better performance. In such cases, robust remote communication between boards should be prioritized. </p>
+        <p>To enhance scalability and flexibility, transitioning to wireless communication protocols like Wi-Fi or Zigbee would be beneficial. Incorporating machine learning algorithms could optimize device control by predicting user preferences, while adding energy-saving mechanisms such as solar-powered components would improve sustainability. Given the complexity of this smart home system, using a more powerful board or planning for multiple boards from the start would ensure better performance. In such cases, robust remote communication between boards should be prioritized. </p>
 
     </section>
 
     <footer>
-        <p>Many thanks to Nicholas McGill-Gardner, Yadnik Bendale and all guys in this course. </p>
+        <p>Many thanks to Dr. Nicholas McGill-Gardner, TA: Yadnik Bendale and all guys in this course. </p>
         <p>Project by <a href="https://github.com/HTUPENN">HT</a>, <a href="https://github.com/RzWang0404">RZW</a>  , <a href="https://github.com/QingyangXu11">QYX</a></p>
     </footer>
 </body>
